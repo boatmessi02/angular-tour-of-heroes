@@ -1,0 +1,19 @@
+.modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.close-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn-wrapper img {
+  border-radius: 100%;
+  background-color: #ff5444;
+  width: fit-content;
+  padding: 8px;
+  width: 40px;
+  cursor: pointer;
+}

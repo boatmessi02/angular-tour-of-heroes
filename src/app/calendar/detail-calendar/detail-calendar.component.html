@@ -1,0 +1,89 @@
+<div class="calender-detail">
+  <div class="container">
+    <div class="btn-calendar-detail">
+      <app-button
+        leftIcon="/assets/images/back.png"
+        (click)="backBtnClick()"
+        variant="back"
+      ></app-button>
+      <span>{{ thaiDate }}</span>
+    </div>
+
+    <!-- 1st table -->
+    <div class="head-search">
+      <span> การลาทั้งหมดในวันนี้ </span>
+      <div class="search-person">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass" style="color: #00a6e6"></i>
+        </span>
+        <input
+          class="search-input"
+          type="search"
+          placeholder="ค้นหา"
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearchChange()"
+        />
+      </div>
+    </div>
+    <table>
+      <thead>
+        <th style="text-align: center; border-radius: 4px 0 0 0">ลำดับ</th>
+        <th style="text-align: left">ประเภทการลา</th>
+        <th>วันที่ยื่นลา</th>
+        <th style="text-align: left">ผู้ลา</th>
+        <th style="text-align: center">ช่วงเวลาในการลา</th>
+        <th style="text-align: left">รวมวันที่ลา/ชั่วโมง</th>
+        <th style="text-align: center; border-radius: 0 4px 0 0">สถานะ</th>
+      </thead>
+      <tbody
+        *ngFor="let user of sortedUsers; let i = index"
+        [ngClass]="i % 2 == 0 ? 'colorEven' : 'colorOdd'"
+      >
+        <tr
+          *ngIf="
+            user.birthday === user.leave || user.dateLeave === dateSelected
+          "
+        >
+          <td style="text-align: center">{{ i + 1 }}</td>
+          <td>{{ user.leave }}</td>
+          <td style="text-align: center">{{ user.dateLeave }}</td>
+          <td>
+            {{ user.name }}
+          </td>
+          <td style="text-align: center">{{ user.genreLeave }}</td>
+          <td>{{ user.timeLeave }}</td>
+          <td
+            style="text-align: center"
+            [ngClass]="user.allow === 'อนุมัติ' ? 'allow' : 'notAllow'"
+          >
+            {{ user.allow }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 2nd table -->
+    <div class="head-search" style="margin-top: 40px">
+      <span> พนักงานที่มีวันคล้ายวันเกิดทั้งหมดในวันนี้ </span>
+    </div>
+    <table>
+      <thead>
+        <th style="text-align: center; border-radius: 4px 0 0 0; width: 100px">
+          ลำดับ
+        </th>
+        <th style="text-align: left; width: 250px">
+          ชื่อพนักงานที่เกิดในวันนี้
+        </th>
+        <th style="text-align: left; border-radius: 0 4px 0 0">แผนก</th>
+      </thead>
+      <tbody
+        *ngFor="let birthday of usersBirthday; let i = index"
+        [ngClass]="i % 2 == 0 ? 'colorEven' : 'colorOdd'"
+      >
+        <td style="text-align: center">{{ i + 1 }}</td>
+        <td style="text-align: left">{{ birthday.name }}</td>
+        <td style="text-align: left">{{ birthday.department }}</td>
+      </tbody>
+    </table>
+  </div>
+</div>

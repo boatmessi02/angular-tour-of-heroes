@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="header-equipment">
+    <app-button
+      leftIcon="/assets/icons/back.png"
+      routerLink="/main/employee/new-employee"
+      variant="back"
+    ></app-button>
+    <span>เพิ่มข้อมูลพนักงาน</span>
+  </div>
+  <div class="container-content">
+    <div class="wrapper-conntent">
+      <div class="wrapper-item">
+        <span>คำหน้าชื่อ*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>ชื่อ (TH)*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>นามสกุล (TH)*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>ชื่อ (EN)*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>นามสกุล (EN)*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>ชื่อเล่น*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>บริษัท*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>แผนก*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>ตำแหน่ง</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>ประเภทพนักงาน*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>วันที่เริ่มงาน*</span>
+        <span class="underlineText">นาย</span>
+      </div>
+      <div class="wrapper-item">
+        <span>E-mail บริษัท*</span>
+        <span class="filed-email">
+          <input type="email" placeholder="กรอกอีเมลล์" />
+        </span>
+      </div>
+      <div class="wrapper-item">
+        <span>เบิกคอมพิวเตอร์หรือแลปท็อปของบริษัท*</span>
+        <span class="underlineText">ต้องการ</span>
+      </div>
+      <div class="wrapper-item">
+        <span>อุปกรณ์*</span>
+        <app-multi-select
+          [hasInput]="true"
+          [list]="testList"
+          (onSubmit)="onSubmit($event)"
+        ></app-multi-select>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="MyDatePicker">
+  <div class="container">
+    <div class="head">
+      <div class="btn-arrow" (click)="setMonth(-1)">
+        <span class="left-arrow"></span>
+      </div>
+      <div class="wrapper-head-month-year">
+        <div>{{ getMonthStr(this.month) }}</div>
+        <span class="title-month-year" (click)="onMonthToggle()">
+          {{ monthSelected }}
+        </span>
+        <span class="title-month-year">
+          {{ year }}
+        </span>
+        <div *ngIf="this.toggleMonthSelect" class="toggle-month-select">
+          <div
+            class="close-month-select"
+            (click)="selectMonth(numberOfMonthSelected)"
+          >
+            X
+          </div>
+          <div *ngFor="let month of monthList; let i = index">
+            <span (click)="selectMonth(i)">{{ month }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="btn-arrow" (click)="setMonth(1)">
+        <span class="right-arrow"></span>
+      </div>
+    </div>
+    <div class="container-month">
+      <div class="head-month">
+        <div
+          class="day-name"
+          [ngClass]="i === 0 ? 'sunday-color' : ''"
+          *ngFor="let day of ['S', 'M', 'T', 'W', 'T', 'F', 'S']; let i = index"
+        >
+          {{ day }}
+        </div>
+      </div>
+
+      <div class="day-container">
+        <div
+          *ngFor="let day of monthDetailList; let i = index"
+          class="day-wrapper"
+          [ngClass]="day.month !== 0 ? 'disabled' : ''"
+        >
+          <div class="day-number-month">
+            <span routerLink="/calendar/calendar-large">{{ day.date }}</span>
+          </div>
+          <div class="wrapper-leave" *ngIf="day.leaveValue">
+            <div
+              id="tooltip"
+              class="wrapper-dot"
+              *ngFor="let user of day.leaveValue; let userIndex = index"
+            >
+              <span id="tooltipText">{{ user.name }}</span>
+              <span
+                (click)="onCircleClick()"
+                style="cursor: pointer"
+                *ngIf="day.dateTimeStr === user.dateLeave && userIndex + 1 <= 6"
+                [ngClass]="
+                  user.leave === 'ลาป่วย'
+                    ? 'business-leave'
+                    : user.leave === 'ลากิจ'
+                    ? 'sick-leave'
+                    : user.leave === 'ลาพักร้อน'
+                    ? 'summer-leave'
+                    : 'other-leave'
+                "
+              ></span>
+            </div>
+            <span
+              style="font-size: 6px; font-weight: bold; margin-left: 1px"
+              *ngIf="
+                day.month === 0 && day.leaveValue && day.leaveValue.length > 6
+              "
+            >
+              +{{ day.leaveValue.length - 6 }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

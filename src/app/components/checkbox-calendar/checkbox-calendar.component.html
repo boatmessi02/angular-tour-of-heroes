@@ -1,0 +1,58 @@
+<div class="wrapper-checkbox">
+  <div class="head-leave">
+    <span class="category-leave">ประเภทวันลา</span>
+    <span (click)="onClearFilter(1)" style="color: #aeaeb2; cursor: pointer"
+      >ล้าง</span
+    >
+  </div>
+  <div class="checkbox">
+    <div class="checkbox-label" *ngFor="let category of includeLeaveGenres">
+      <input
+        [id]="category.nameStyle"
+        type="checkbox"
+        [checked]="category.select"
+        (change)="onChangeCategory($event, 1)"
+        [value]="category.id"
+      />
+      <label [for]="category.id">{{ category.leaveLabel }}</label>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper-checkbox">
+  <div class="head-leave">
+    <span class="category-leave">วันเกิด</span>
+    <span (click)="onClearFilter(2)" style="color: #aeaeb2; cursor: pointer"
+      >ล้าง</span
+    >
+  </div>
+  <div class="checkbox-label" *ngFor="let day of includeBirthdays">
+    <input
+      [id]="day.nameStyle"
+      type="checkbox"
+      [checked]="day.select"
+      (change)="onChangeCategory($event, 2)"
+      [value]="day.id"
+    />
+    <label [for]="day.id">{{ day.leaveLabel }}</label>
+  </div>
+</div>
+
+<div class="wrapper-checkbox">
+  <div class="head-leave">
+    <span class="category-leave">วันหยุดตามธนาคาร</span>
+    <span (click)="onClearFilter(3)" style="color: #aeaeb2; cursor: pointer"
+      >ล้าง</span
+    >
+  </div>
+  <div class="checkbox-label" *ngFor="let day of includeHolidays">
+    <input
+      [id]="day.nameStyle"
+      type="checkbox"
+      [checked]="day.select"
+      (change)="onChangeCategory($event, 3)"
+      [value]="day.id"
+    />
+    <label [for]="day.id">{{ day.leaveLabel }}</label>
+  </div>
+</div>

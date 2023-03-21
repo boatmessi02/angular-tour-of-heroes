@@ -1,0 +1,164 @@
+<div class="calender-large">
+  <div class="container">
+    <div class="btn-calendar-large">
+      <app-button
+        leftIcon="/assets/icons/back.png"
+        routerLink="/calendar"
+        variant="back"
+      ></app-button>
+      <span>ปฏิทิน</span>
+    </div>
+
+    <!-- Number of calendar -->
+    <div class="leave-container">
+      <div
+        [style]="'border: 4px solid ' + leave.border"
+        class="personal-leave"
+        *ngFor="let leave of leaveList"
+      >
+        <span class="leave-text">{{ leave.leave }}</span>
+        <span class="amount-person" [style]="'color:' + leave.color">{{
+          leave.amount
+        }}</span>
+      </div>
+    </div>
+
+    <div class="wrapper-calendar">
+      <!-- Check box -->
+      <div class="check-leave-container">
+        <app-checkbox-calendar
+          (leaveGenreEmit)="getGenreOfLeaveCheckbox($event)"
+          (birthdayEmit)="getBirthdayCheckbox($event)"
+          (holidayEmit)="getHolidayCheckbox($event)"
+        ></app-checkbox-calendar>
+      </div>
+
+      <!-- Calendar -->
+      <div class="calendar-container">
+        <div class="wrapper-calendar-head">
+          <div class="head-month">
+            <span style="cursor: pointer" (click)="setMonth(-1)">
+              <i class="fa-solid fa-angle-left"></i>
+            </span>
+            <div>{{ getMonthStr(this.month) }}</div>
+            <span class="title-month">
+              {{ monthSelected }}
+            </span>
+            <span class="title-year">
+              {{ year }}
+            </span>
+            <span style="cursor: pointer" (click)="setMonth(1)">
+              <i class="fa-solid fa-angle-right"></i>
+            </span>
+          </div>
+
+          <!-- Choose category-calendar -->
+          <div class="category-calendar">
+            <div class="wrapper-today">
+              <span
+                [className]="
+                  today === 'today' && todayMonth === month
+                    ? 'card-button-active'
+                    : 'card-button'
+                "
+                (click)="todayCalendarClick('today')"
+                >วันนี้</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendar grid -->
+        <div class="month-container">
+          <div
+            class="grid-head-month"
+            [ngClass]="i === 0 ? 'sunday-color' : ''"
+            *ngFor="
+              let day of ['Su', 'Mo', 'Tu', 'W', 'Th', 'F', 'S'];
+              let i = index
+            "
+          >
+            {{ day }}
+          </div>
+          <div
+            class="grid-month"
+            *ngFor="let day of monthDetailList; let i = index"
+            routerLink="/calendar/calendar-large/{{ day.dateTimeStr }}"
+            [ngClass]="day.month !== 0 ? 'disabled' : ''"
+          >
+            <div class="day-number-month">
+              <span>{{ day.date }}</span>
+            </div>
+            <div class="wrapper-day-leave" *ngIf="day.leaveValue">
+              <div
+                id="tooltip"
+                *ngFor="let user of day.leaveValue; let userIndex = index"
+              >
+                <div
+                  style="cursor: pointer"
+                  *ngIf="
+                    isLeaveCondition(
+                      day.dateTimeStr,
+                      user.dateLeave,
+                      userIndex,
+                      user.birthday,
+                      user.leave,
+                      user.theSameDay
+                    )
+                  "
+                >
+                  <div id="tooltipText">
+                    <span class="tooltipNameText">{{ user.name }} </span>
+                    <div
+                      style="display: flex; gap: 2px; justify-content: center"
+                    >
+                      <span
+                        *ngIf="
+                          isBirthdayTooltip(
+                            day.dateTimeStr,
+                            user.birthday,
+                            user.dateLeave
+                          )
+                        "
+                        class="tooltipLeaveText"
+                        >{{ user.leave }}</span
+                      >
+                      <span
+                        *ngIf="day.dateTimeStr === user.birthday"
+                        class="tooltipLeaveText"
+                        >(วันเกิด)</span
+                      >
+                    </div>
+                  </div>
+                  <img
+                    style="border-radius: 50%"
+                    src="assets/img/Atsawin.jpg"
+                    alt=""
+                    width="16"
+                    height="16"
+                  />
+                </div>
+              </div>
+              <span
+                style="margin-left: 5px"
+                *ngIf="
+                  setMemberLeaveOver(
+                    day.month,
+                    day.leaveValue,
+                    day.leaveValue.length
+                  )
+                "
+              >
+                +{{
+                  !mediaScreenCheck
+                    ? day.leaveValue.length - 6
+                    : day.leaveValue.length - 3
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

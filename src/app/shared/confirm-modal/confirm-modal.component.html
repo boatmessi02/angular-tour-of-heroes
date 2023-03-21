@@ -1,0 +1,31 @@
+<ng-template #confirmModal let-modal>
+  <div class="modal-wrapper">
+    <div class="close-btn-wrapper">
+      <img
+        src="/assets/icons/x.png"
+        alt="x.png"
+        (click)="modal.close('top-button')"
+      />
+    </div>
+    <!-- content -->
+    <div class="content">
+      <ng-content select="[content]"></ng-content>
+    </div>
+    <!-- close button -->
+    <div (click)="modal.close('submit-button')">
+      <ng-content select="[button]"> </ng-content>
+    </div>
+  </div>
+</ng-template>
+
+<!-- open modal -->
+<app-button
+  [label]="buttonLabel"
+  [leftIcon]="leftIcon"
+  [variant]="variant"
+  [paddingCustom]="paddingCustom"
+  padding="md"
+  [iconSize]="iconSize"
+  [disabled]="(form || disable) && form.invalid"
+  (click)="(form || disable) && form.invalid ? null : open()"
+></app-button>

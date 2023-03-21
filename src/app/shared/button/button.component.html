@@ -1,0 +1,51 @@
+<button
+  *ngIf="!routerLink"
+  class="button"
+  [class]="variant"
+  [style]="
+    'padding: ' +
+    paddingStyle +
+    ';' +
+    'border-radius: ' +
+    roundedStyle +
+    ';' +
+    disabled
+  "
+  [disabled]="disabled"
+>
+  <img
+    *ngIf="leftIcon"
+    [src]="leftIcon"
+    [alt]="leftIcon"
+    [style]="iconSize && 'width: ' + iconSize"
+  />
+  <div *ngIf="label" [style]="leftIcon && 'margin-left: 10px'">
+    {{ label }}
+  </div>
+</button>
+
+<button
+  *ngIf="routerLink"
+  class="button"
+  [class]="variant"
+  [style]="
+    'padding: ' +
+    paddingStyle +
+    ';' +
+    'border-radius: ' +
+    roundedStyle +
+    ';' +
+    disabled
+  "
+  [disabled]="disabled"
+>
+  <img
+    *ngIf="leftIcon"
+    [src]="leftIcon"
+    [alt]="leftIcon"
+    [style]="iconSize && 'width: ' + iconSize"
+  />
+  <div *ngIf="label" [style]="leftIcon && 'margin-left: 10px'">
+    {{ label }}
+  </div>
+</button>
