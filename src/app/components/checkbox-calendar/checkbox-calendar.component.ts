@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import {
-  leaveGenreCheckboxes,
-  birthdayCheckboxes,
-  holidayCheckboxes,
+  leaveGenreCheckboxList,
+  birthdayCheckboxList,
+  holidayCheckboxList,
 } from 'src/app/core/configs/calendar';
 
 @Component({
@@ -17,44 +17,46 @@ export class CheckboxCalendarComponent implements OnInit {
   birthdayEmit: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output()
   holidayEmit: EventEmitter<any[]> = new EventEmitter<any[]>();
-  includeLeaveGenres!: any[];
-  includeBirthdays!: any[];
-  includeHolidays!: any[];
+  includeLeaveGenreList!: any[];
+  includeBirthdayList!: any[];
+  includeHolidayList!: any[];
 
   ngOnInit() {
-    this.includeLeaveGenres = leaveGenreCheckboxes;
-    this.includeBirthdays = birthdayCheckboxes;
-    this.includeHolidays = holidayCheckboxes;
+    this.includeLeaveGenreList = leaveGenreCheckboxList;
+    this.includeBirthdayList = birthdayCheckboxList;
+    this.includeHolidayList = holidayCheckboxList;
   }
 
   onChangeCategory($event: any, numCheck: number) {
     const id = $event.target.value;
     const isChecked = $event.target.checked;
     if (numCheck === 1) {
-      this.includeLeaveGenres = this.includeLeaveGenres.map((genre: any) => {
-        if (genre.id == id) {
-          genre.select = isChecked;
-          this.leaveGenreEmit.emit(this.includeLeaveGenres);
+      this.includeLeaveGenreList = this.includeLeaveGenreList.map(
+        (genre: any) => {
+          if (genre.id == id) {
+            genre.select = isChecked;
+            this.leaveGenreEmit.emit(this.includeLeaveGenreList);
 
+            return genre;
+          }
           return genre;
         }
-        return genre;
-      });
+      );
     } else if (numCheck === 2) {
-      this.includeBirthdays = this.includeBirthdays?.map((day:any) => {
+      this.includeBirthdayList = this.includeBirthdayList?.map((day: any) => {
         if (day.id == id) {
           day.select = isChecked;
-          this.birthdayEmit.emit(this.includeBirthdays);
+          this.birthdayEmit.emit(this.includeBirthdayList);
 
           return day;
         }
         return day;
       });
     } else {
-      this.includeHolidays = this.includeHolidays?.map((day:any) => {
+      this.includeHolidayList = this.includeHolidayList?.map((day: any) => {
         if (day.id == id) {
           day.select = isChecked;
-          this.holidayEmit.emit(this.includeHolidays);
+          this.holidayEmit.emit(this.includeHolidayList);
           return day;
         }
         return day;
@@ -64,23 +66,25 @@ export class CheckboxCalendarComponent implements OnInit {
 
   onClearFilter(numCheck: number) {
     if (numCheck === 1) {
-      this.includeLeaveGenres = this.includeLeaveGenres.map(
+      this.includeLeaveGenreList = this.includeLeaveGenreList.map(
         (genreLeave: any) => {
           genreLeave.select = false;
-          this.leaveGenreEmit.emit(this.includeLeaveGenres);
+          this.leaveGenreEmit.emit(this.includeLeaveGenreList);
           return genreLeave;
         }
       );
     } else if (numCheck === 2) {
-      this.includeBirthdays = this.includeBirthdays?.map((genreBirthday) => {
-        genreBirthday.select = false;
-        this.birthdayEmit.emit(this.includeBirthdays);
-        return genreBirthday;
-      });
+      this.includeBirthdayList = this.includeBirthdayList?.map(
+        (genreBirthday) => {
+          genreBirthday.select = false;
+          this.birthdayEmit.emit(this.includeBirthdayList);
+          return genreBirthday;
+        }
+      );
     } else {
-      this.includeHolidays = this.includeHolidays?.map((genreHoliday) => {
+      this.includeHolidayList = this.includeHolidayList?.map((genreHoliday) => {
         genreHoliday.select = false;
-        this.holidayEmit.emit(this.includeHolidays);
+        this.holidayEmit.emit(this.includeHolidayList);
         return genreHoliday;
       });
     }

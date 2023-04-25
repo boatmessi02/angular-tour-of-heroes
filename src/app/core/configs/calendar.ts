@@ -1,11 +1,11 @@
-export const leaveGenreCheckboxes = [
+export const leaveGenreCheckboxList = [
   { id: 1, nameStyle: 'cb1', select: true, leaveLabel: 'ลากิจ' },
   { id: 2, nameStyle: 'cb2', select: true, leaveLabel: 'ลาป่วย' },
   { id: 3, nameStyle: 'cb3', select: true, leaveLabel: 'ลาพักร้อน' },
   { id: 4, nameStyle: 'cb4', select: true, leaveLabel: 'ลาอื่นๆ' },
 ];
 
-export const birthdayCheckboxes = [
+export const birthdayCheckboxList = [
   {
     id: 5,
     nameStyle: 'cb5',
@@ -14,11 +14,11 @@ export const birthdayCheckboxes = [
   },
 ];
 
-export const holidayCheckboxes = [
+export const holidayCheckboxList = [
   { id: 6, nameStyle: 'cb6', select: true, leaveLabel: 'วันหยุดทั้งหมด' },
 ];
 
-const users: any = [
+const userList: any = [
   {
     name: 'สมัครชัย',
     dateLeave: '2023-03-05',
@@ -67,8 +67,8 @@ const users: any = [
     name: 'สมพร',
     dateLeave: '2023-03-02',
     leave: 'ลากิจ',
-    birthday: '2023-03-02',
-    theSameDay: true,
+    birthday: '2023-03-03',
+    theSameDay: false,
     department: 'ดีไซน์เนอร์',
     genreLeave: 'ลาช่วงบ่าย',
     timeLeave: '4 ชั่วโมง',
@@ -209,7 +209,7 @@ const users: any = [
   },
 ];
 
-const daysMap: string[] = [
+const dayList: string[] = [
   'Sunday',
   'Monday',
   'Tuesday',
@@ -219,14 +219,8 @@ const daysMap: string[] = [
   'Saturday',
 ];
 
-const convertTimestampToStrConfig = (timestamp: any) => {
-  // const dateObj = new Date(timestamp);
-  // const yearStr = dateObj.getFullYear();
-  // const monthStr = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-  // const dateStr = dateObj.getDate().toString().padStart(2, '0');
-  // return `${yearStr}-${monthStr}-${dateStr}`;
-  
-  const dateString = timestamp;
+const extractDateToStrConfig = (thaiDate: any) => {
+  const dateString = thaiDate;
   // Extract year, month, and day values from the date string
   const [dateStr, monthStr, year] = dateString
     .split(' ')[0]
@@ -241,25 +235,21 @@ const getNumberOfDaysConfig = (year: any, month: any) => {
   return 40 - new Date(year, month, 40).getDate();
 };
 
-const getDayDetailsConfig = (monthDetail: any) => {
-  let date = monthDetail.index - monthDetail.firstDayOfMonth;
-  let day = monthDetail.index % 7;
-  let prevMonth = monthDetail.month - 1;
-  let prevYear = monthDetail.year;
+const getDayDetailsConfig = (monthDetailList: any) => {
+  let date = monthDetailList.index - monthDetailList.firstDayOfMonth;
+  let day = monthDetailList.index % 7;
+  let prevMonth = monthDetailList.month - 1;
+  let prevYear = monthDetailList.year;
   if (prevMonth < 0) {
     prevMonth = 11;
     prevYear--;
   }
   let prevMonthNumberOfDays = getNumberOfDaysConfig(prevYear, prevMonth);
   let _date =
-    (date < 0 ? prevMonthNumberOfDays + date : date % monthDetail.dayOfMonth) +
+    (date < 0 ? prevMonthNumberOfDays + date : date % monthDetailList.dayOfMonth) +
     1;
-  let month = date < 0 ? -1 : date >= monthDetail.dayOfMonth ? 1 : 0;
-  // let timestamp = new Date(
-  //   monthDetail.year,
-  //   monthDetail.month + month,
-  //   _date
-  // ).getTime();
+  let month = date < 0 ? -1 : date >= monthDetailList.dayOfMonth ? 1 : 0;
+
   const options: any = {
     year: 'numeric',
     month: '2-digit',
@@ -269,18 +259,19 @@ const getDayDetailsConfig = (monthDetail: any) => {
     second: '2-digit',
     hour12: false,
   };
-  let timestamp = new Date(
-    monthDetail.year,
-    monthDetail.month + month,
+  let thaiDate = new Date(
+    monthDetailList.year,
+    monthDetailList.month + month,
     _date
   ).toLocaleString('th-TH', options);
-  let dateTimeStr = convertTimestampToStrConfig(timestamp);
+
+  let dateTimeStr = extractDateToStrConfig(thaiDate);
   return {
     date: _date,
     day,
     month,
     dateTimeStr,
-    dayString: daysMap[day],
+    dayString: dayList[day],
   };
 };
 
@@ -303,7 +294,7 @@ export const getMonthDetailsConfig = (year: number, month: number) => {
       });
 
       let addLeaveUserToCurrentDay: any = [];
-      users.forEach((user: any) => {
+      userList.forEach((user: any) => {
         if (
           user.dateLeave === currentDay.dateTimeStr &&
           currentDay.dateTimeStr !== user.birthday
@@ -323,9 +314,9 @@ export const getMonthDetailsConfig = (year: number, month: number) => {
 
       monthArray.push(currentDay);
       index++;
+      
     }
   }
-  console.log(monthArray);
-
+  
   return { monthArray: monthArray };
 };

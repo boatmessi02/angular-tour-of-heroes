@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonthDetailType, LeaveType } from 'src/app/interface/I-calendar';
 import {
-  birthdayCheckboxes,
+  birthdayCheckboxList,
   getMonthDetailsConfig,
-  holidayCheckboxes,
-  leaveGenreCheckboxes,
+  holidayCheckboxList,
+  leaveGenreCheckboxList,
 } from '../../core/configs/calendar';
 
 @Component({
@@ -33,9 +33,9 @@ export class CalendarLargeComponent implements OnInit {
     this.getInitialCurrentMonth();
 
     // Set Default Value
-    this.includeLeaveGenreList = leaveGenreCheckboxes;
-    this.includeBirthdayList = birthdayCheckboxes;
-    this.includeHolidayList = holidayCheckboxes;
+    this.includeLeaveGenreList = leaveGenreCheckboxList;
+    this.includeBirthdayList = birthdayCheckboxList;
+    this.includeHolidayList = holidayCheckboxList;
   }
 
   getInitialCurrentMonth() {

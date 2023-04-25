@@ -6,7 +6,7 @@
     >
   </div>
   <div class="checkbox">
-    <div class="checkbox-label" *ngFor="let category of includeLeaveGenres">
+    <div class="checkbox-label" *ngFor="let category of includeLeaveGenreList">
       <input
         [id]="category.nameStyle"
         type="checkbox"
@@ -26,7 +26,7 @@
       >ล้าง</span
     >
   </div>
-  <div class="checkbox-label" *ngFor="let day of includeBirthdays">
+  <div class="checkbox-label" *ngFor="let day of includeBirthdayList">
     <input
       [id]="day.nameStyle"
       type="checkbox"
@@ -45,7 +45,7 @@
       >ล้าง</span
     >
   </div>
-  <div class="checkbox-label" *ngFor="let day of includeHolidays">
+  <div class="checkbox-label" *ngFor="let day of includeHolidayList">
     <input
       [id]="day.nameStyle"
       type="checkbox"

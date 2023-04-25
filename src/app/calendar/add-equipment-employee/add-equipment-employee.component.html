@@ -72,5 +72,20 @@
         ></app-multi-select>
       </div>
     </div>
+    <div style="display: flex">
+      <app-confirm-modal variant="cancel" buttonLabel="บันทึก">
+        <ng-container content>
+          <div class="model-content">
+            <div>ยกเลิกการส่งแบบฟอร์ม?</div>
+            <img src="/assets/icons/paper.png" alt="paper.png" width="80px" />
+          </div>
+        </ng-container>
+        <ng-container button>
+          <app-button label="ตกลง" rounded="md" variant="submit"> </app-button>
+        </ng-container>
+      </app-confirm-modal>
+      <app-button label="ยกเลิก" variant="cancel" routerLink="/calendar">
+      </app-button>
+    </div>
   </div>
 </div>

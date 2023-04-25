@@ -8,6 +8,7 @@
 .head-leave {
   display: flex;
   justify-content: space-between;
+  font-family: "Kanit";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -15,6 +16,7 @@
 }
 
 .category-leave {
+  font-family: "Kanit";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -31,7 +33,7 @@
 .checkbox-label {
   display: flex;
   margin-top: 8px;
-  gap: 4px;
+  gap: 10px;
 }
 
 #cb1 {
@@ -62,4 +64,8 @@
 #cb6 {
   accent-color: #2e3579;
   cursor: pointer;
+}
+
+input {
+  transform: scale(1.5);
 }
